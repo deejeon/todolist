@@ -17,5 +17,19 @@
 				<a href="/logout">Logout</a>
 			</div>
 		</div>
+		
+		<div class="content">
+			<div class="sidebar">
+				<div class="selected-tab"><img class="icon" src="img/checklist-icon.png" alt="Checklist Icon" width="20" height="20"><p>All Tasks</p></div>
+				<a class="tab" href="/"><img class="icon" src="img/checklist-icon.png" alt="Checklist Icon" width="20" height="20">Today</a>
+				<a class="tab" href="/"><img class="icon" src="img/checklist-icon.png" alt="Checklist Icon" width="20" height="20">Next 7 Days</a>
+				<div class="divider"></div>
+				<a class="tab" href="/"><img class="icon" src="img/checklist-icon.png" alt="Checklist Icon" width="20" height="20">High Priority</a>
+				<a class="tab" href="/"><img class="icon" src="img/checklist-icon.png" alt="Checklist Icon" width="20" height="20">Medium Priority</a>
+				<a class="tab" href="/"><img class="icon" src="img/checklist-icon.png" alt="Checklist Icon" width="20" height="20">Low Priority</a>
+				<div class="divider"></div>
+			</div>
+			<div class="main-content"></div>
+		</div>
 	</body>
 </html>

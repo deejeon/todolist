@@ -4,7 +4,7 @@ html {
 
 html, body {
 	height: 100%;
-	background-color: #fafafa !important;
+	background-color: #fff !important;
 	box-sizing: border-box;
 	font-size: 13px;
 	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
@@ -21,13 +21,13 @@ body {
 	margin-right: auto;
 	overflow-x: hidden;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
 
 .header {
 	width: 100%;
 	height: 9vh;
-	padding: 0 90px 0 100px;
 	background-color: #e44232;
 	color: #fff;
 	display: flex;
@@ -39,6 +39,7 @@ body {
 	font-style: normal;
 	font-weight: 500;
 	font-size: 24px;
+	margin-left: 100px;
 }
 
 .user-info {
@@ -51,6 +52,7 @@ body {
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px 0;
+	margin-right: 100px;
 }
 
 .user-info p {
@@ -70,4 +72,55 @@ body {
 .user-info a:hover {
 	border-bottom: 2px solid #FFD15B;
 	color: black;
+}
+
+.content {
+	width: 100%;
+	height: 91vh;
+	display: flex;
+	
+}
+
+.sidebar {
+	width: 20%;
+	background-color: #fafafa;
+	border-right: 1px solid #dddddd;
+	display: flex;
+	flex-direction: column;
+	padding-top: 0px;
+}
+
+.tab {
+	padding: 16px 50px;
+	font-style: normal;
+	font-weight: 300;
+	text-decoration: none;
+	color: black;
+	display: flex;
+	align-items: center;
+}
+
+.tab:hover {
+	color: #e44232;
+	background-color: #fff;
+}
+
+.selected-tab {
+	padding: 3px 50px;
+	background-color: #fff;
+	color: #e44232;
+	font-weight: 600;
+	font-size: 15px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.icon {
+	margin-right: 10px;
+}
+
+.divider {
+	margin: 10px 35px 15px 35px;
+	border-bottom: 1px solid #dddddd;
 }
