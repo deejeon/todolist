@@ -1,0 +1,177 @@
+body {
+	width: 100vw;
+	margin: 0px;
+	padding: 0px;
+	font-family: "Graphik Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.header {
+	width: 80%;
+	background: #FFFFFF;
+	height: 10vh;
+	/* color: #f1f1f1; */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.header h1 {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 24px;
+	color: #e44232;
+}
+
+.header h1 a, .header h1 a:visited {
+	text-decoration: none;
+	color: #e44232;
+}
+
+.header-links {
+	font-style: normal;
+	font-size: 16px;
+	font-weight: 300;
+}
+
+.header-links a {
+	padding: 10px;
+	text-decoration: none;
+	color: #424242;
+}
+
+.header-links a:hover {
+	border-bottom: 2px solid #e44232;
+	background-image: linear-gradient(#f5f5f5, white);
+	color: black;
+}
+
+#register {
+	color: #e44232;
+}
+
+.content {
+  	padding: 0px;
+  	padding-top: 80px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+}
+
+#getstarted {
+	height: 90vh;
+	background-image: url(todoist.jpg);
+	background-size: 100%;
+	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	padding-top: 0px;
+}
+#getstarted p {
+	width: 60%;
+	margin-top: 0px;
+	margin-bottom: 15px;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 50px;
+	color: black;
+	text-align: center;
+}
+
+#info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px 150px;
+}
+
+#info h1 {
+	margin-bottom: 0px;
+}
+
+#info p {
+	font-size: 14px;
+	font-weight: 300;
+	padding: 0px 10px;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.reviews {
+	width: 100%;
+/* 	margin: -1rem 0 -3rem;
+ */	padding: 0 0 2rem;
+	position: relative;
+}
+#reviews-image {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-image: url(todoist-reviews.jpg);
+	background-size: 100%;
+	background-repeat: repeat-x;
+	background-position: 50%;
+}
+.reviews-container {
+	padding: 0 .5rem;
+	display: flex;
+	white-space: pre-wrap;
+	justify-content: space-between;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1120px;
+}
+
+.review {
+	position: relative;
+	padding: .8rem .5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.reviewer {
+	font-size: 1rem;
+	letter-spacing: 0;
+	margin: 0;
+}
+
+.stars {
+	margin: 0;
+}
+
+.review-content {
+	
+	font-weight: 600;
+	font-size: 1.5rem;
+	letter-spacing: -.01em;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+
+.sticky {
+	position: fixed;
+	top: 0;
+}
+
+.btn-link {
+	padding: 5px 15px;
+	background: #e44232;
+	border-radius: 10px;
+	text-decoration: none;
+	color: white;
+}
+
+.btn-link:hover {
+	opacity: 0.9;
+}
+
+/* .sticky + .content {
+	padding-top: 70px;
+} */
