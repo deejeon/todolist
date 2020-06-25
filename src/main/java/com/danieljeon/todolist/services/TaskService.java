@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.danieljeon.todolist.models.Category;
 import com.danieljeon.todolist.models.Task;
 import com.danieljeon.todolist.models.User;
 import com.danieljeon.todolist.repositories.TaskRepo;
@@ -29,6 +30,10 @@ public class TaskService {
 	
 	public List<Task> allByCreator(User user) {
 		return taskRepo.findByCreator(user);
+	}
+	
+	public List<Task> allByCategory(Category category) {
+		return taskRepo.findByCategory(category);
 	}
 	
 	public Task create(Task task) {

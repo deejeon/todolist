@@ -51,6 +51,10 @@ public class Task {
 	@JoinColumn(name = "assignee_id")
 	private User assignee;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id")
+	private Category category;
+	
 	@OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
 	private List<Comment> comments;
 	
@@ -126,6 +130,14 @@ public class Task {
 
 	public void setAssignee(User assignee) {
 		this.assignee = assignee;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public List<Comment> getComments() {
