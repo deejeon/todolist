@@ -57,10 +57,10 @@
 			<div class="main-content">
 				<h1><c:out value="${displayedPriority}"/> Priority Tasks</h1>
 				<c:forEach items="${currentTasks}" var="task">
-				<div class="task-div">
+				<a class="task-div" href="/tasks/${task.id}">
 					<p class="task-div-task"><img class="icon" src="/img/${task.category.name}-icon.png" width="20" height="20"><c:out value="${task.title}"/><span>(Due: <c:out value="${task.deadline}"/>)</span></p>
 					<p class="task-div-assignee">Assigned to <span><c:out value="${task.assignee.firstName}"/> <c:out value="${task.assignee.lastName}"/></span></p>
-				</div>
+				</a>
 				<div class="task-divider"></div>
 				</c:forEach>
 				<div class="task-div">
@@ -70,10 +70,10 @@
 				
 				<h1 class="assigned-header">Assigned to Me By Others</h1>
 				<c:forEach items="${currentAssignedTasks}" var="task">
-				<div class="task-div">
+				<a class="task-div" href="/tasks/${task.id}">
 					<p class="task-div-task"><img class="icon" src="/img/${task.category.name}-icon.png" width="20" height="20"><c:out value="${task.title}"/><span>(Due: <c:out value="${task.deadline}"/>)</span></p>
 					<p class="task-div-assignee">Created by <span><c:out value="${task.creator.firstName}"/> <c:out value="${task.creator.lastName}"/></span></p>
-				</div>
+				</a>
 				<div class="task-divider"></div>
 				</c:forEach>
 			</div>

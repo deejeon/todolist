@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>All Tasks | Todolist</title>
+		<title>Task Details | Todolist</title>
 		<link rel="stylesheet" href="/css/alltasks.css">
 		<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 	</head>
@@ -26,7 +26,7 @@
 			<div class="sidebar">
 				<a class="tab" href="/tasks/new"><img class="icon" src="/img/plus-icon.png" width="20" height="20">New Task</a>
 				<div class="divider"></div>
-				<div class="selected-tab"><img class="icon" src="/img/checklist-icon.png" width="20" height="20"><p>All Tasks <span class="size"><c:out value="${createdTasks.size() + assignedTasks.size()}"/></span></p></div>
+				<a class="tab" href="/tasks"><img class="icon" src="/img/checklist-icon.png" width="20" height="20">All Tasks <span class="size"><c:out value="${createdTasks.size() + assignedTasks.size()}"/></span></a>
 				<a class="tab" href="/"><img class="icon" src="/img/today-icon.png" width="20" height="20">Today</a>
 				<a class="tab" href="/"><img class="icon" src="/img/next-icon.png" width="20" height="20">Next 7 Days</a>
 				<div class="divider"></div>
@@ -39,27 +39,14 @@
 				</c:forEach>
 			</div>
 			<div class="main-content">
-				<h1>All Tasks</h1>
-				<c:forEach items="${createdTasks}" var="createdTask">
-				<a class="task-div" href="/tasks/${createdTask.id}">
-					<p class="task-div-task"><img class="icon" src="/img/${createdTask.category.name}-icon.png" width="20" height="20"><c:out value="${createdTask.title}"/><span>(Due: <c:out value="${createdTask.deadline}"/>)</span></p>
-					<p class="task-div-assignee">Assigned to <span><c:out value="${createdTask.assignee.firstName}"/> <c:out value="${createdTask.assignee.lastName}"/></span></p>
-				</a>
-				<div class="task-divider"></div>
-				</c:forEach>
-				<div class="task-div">
-					<p><a class="task-div-task" href="/tasks/new"><img class="icon" src="/img/plus-icon.png" width="20" height="20">New Task</a></p>
-				</div>
-				
-				<h1 class="assigned-header">Assigned to Me By Others</h1>
-				<c:forEach items="${assignedTasks}" var="task">
-				<a class="task-div" href="/tasks/${task.id}">
-					<p class="task-div-task"><img class="icon" src="/img/${task.category.name}-icon.png" width="20" height="20"><c:out value="${task.title}"/><span>(Due: <c:out value="${task.deadline}"/>)</span></p>
-					<p class="task-div-assignee">Created by <span><c:out value="${task.creator.firstName}"/> <c:out value="${task.creator.lastName}"/></span></p>
-				</a>
-				<div class="task-divider"></div>
-				</c:forEach>
+				<h1><c:out value="${currentTask.title}"/></h1>
+				<p class="detail-line">Created by <span class="bold"><c:out value="${currentTask.creator.firstName}"/> <c:out value="${currentTask.creator.lastName}"/></span> | Assigned to <span class="bold"><c:out value="${currentTask.assignee.firstName}"/> <c:out value="${currentTask.assignee.lastName}"/></span></p>
+				<p class="detail-line detail-line-with-icon">Category: <span class="detail-line-category"><img class="icon" src="/img/${currentTask.category.name}-icon.png" width="20" height="20"><c:out value="${currentTask.category.name}"/></span></p>
+				<p class="detail-line">Deadline: <span class="detail-line-deadline"><c:out value="${formattedDeadline}"/></span></p>
+				<p class="detail-line detail-line-with-icon">Priority: <span class="detail-line-priority"><img class="icon" src="/img/${currentTask.priority}-icon.png" width="20" height="20"><c:out value="${currentTask.priority.substring(0, 1).toUpperCase().concat(currentTask.priority.substring(1))}"/></span></p>
+				<p class="detail-line detail-line-with-icon">Completed: <span class="detail-line-completed"><img class="icon" src="/img/${currentTask.completed}-icon.png" width="20" height="20"></span></p>
 			</div>
 		</div>
+
 	</body>
 </html>

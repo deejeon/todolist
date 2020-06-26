@@ -1,6 +1,8 @@
 package com.danieljeon.todolist.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -256,6 +258,46 @@ public class MainController {
 		model.addAttribute("isMedium", isMedium);
 		model.addAttribute("isLow", isLow);
 		return "prioritytasks.jsp";
+	}
+	
+	@RequestMapping("/tasks/{taskId}")
+	public String showTaskPage(HttpSession session, Model model, @PathVariable("taskId") Long taskId) {
+		if (session.getAttribute("userId") == null) {
+			return "redirect:/";
+		}
+		Long userId = (Long) session.getAttribute("userId");
+		User currentUser = userService.findUserById(userId);
+		Task currentTask = taskService.findTaskById(taskId);
+		Date currentTaskDeadline = currentTask.getDeadline();
+		SimpleDateFormat ft = new SimpleDateFormat("MM/dd/yyyy");
+		String formattedDeadline = ft.format(currentTaskDeadline);
+		
+		List<Category> allCategories = categoryService.all();
+		List<Task> createdTasks = taskService.allByCreator(currentUser);
+		List<Task> assignedTasks = taskService.allByAssigneeAndCreatorNot(currentUser, currentUser);
+
+		List<Task> highTasks = taskService.allByPriorityAndCreator("high", currentUser);
+		List<Task> mediumTasks = taskService.allByPriorityAndCreator("medium", currentUser);
+		List<Task> lowTasks = taskService.allByPriorityAndCreator("low", currentUser);
+		
+		List<Task> highAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("high", currentUser, currentUser);
+		List<Task> mediumAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("medium", currentUser, currentUser);
+		List<Task> lowAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("low", currentUser, currentUser);
+		
+		model.addAttribute("currentUser", currentUser);
+		model.addAttribute("currentTask", currentTask);
+		model.addAttribute("formattedDeadline", formattedDeadline);
+		model.addAttribute("allCategories", allCategories);
+		model.addAttribute("createdTasks", createdTasks);
+		model.addAttribute("assignedTasks", assignedTasks);
+		model.addAttribute("highTasks", highTasks);
+		model.addAttribute("mediumTasks", mediumTasks);
+		model.addAttribute("lowTasks", lowTasks);
+		model.addAttribute("highAssignedTasks", highAssignedTasks);
+		model.addAttribute("mediumAssignedTasks", mediumAssignedTasks);
+		model.addAttribute("lowAssignedTasks", lowAssignedTasks);
+		
+		return "showtask.jsp";
 	}
 	
 //	@RequestMapping("/api/categories")
