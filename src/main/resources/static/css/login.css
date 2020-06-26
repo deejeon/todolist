@@ -44,7 +44,6 @@ body {
 	text-align: center;
 	margin-bottom: 10px;
 	font-style: normal;
-	font-weight: 500;
 	font-size: 12px;
 	color: #e44232;
 	display: flex;
@@ -58,6 +57,7 @@ body {
 }
 
 .logo {
+	font-weight: 600;
 	width: 80%;
 	display: flex;
 	align-items: center;
@@ -120,7 +120,7 @@ body {
 }
 
 .form {
-	margin: 30px 0;
+	margin: 30px 0 30px;
 }
 .input-box {
 	border: 1px solid #ddd;

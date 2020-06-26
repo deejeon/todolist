@@ -14,7 +14,7 @@
 		<main role="main" class="standalone_page">
 			<div class="standalone_page__frame">
 				<div class="standalone_page__logo">
-					<h1><a href="/">Todolist</a></h1>
+					<h1><a class="logo" href="/"><img class="main-logo" src="/img/header-logo-white.png" width="30" height="30">Todolist</a></h1>
 				</div>
 				<div class="standalone_page__content">
 					<div id="signup" class="login_signup_form">

@@ -31,7 +31,7 @@
 				        	<div class="middle-separator">OR</div>
 			        	</div>
 			        	<p class="errormessage"><c:out value="${error}" /></p>
-					    <form method="POST" action="/login">
+					    <form class="form" method="POST" action="/login">
 					        <div class="form-div">
 					            <!-- <label for="email">Email</label> -->
 					            <input class="input-box" type="text" id="email" name="email" placeholder="Email address"/>
