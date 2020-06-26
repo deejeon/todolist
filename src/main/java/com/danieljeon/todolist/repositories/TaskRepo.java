@@ -11,9 +11,9 @@ import com.danieljeon.todolist.models.User;
 
 @Repository
 public interface TaskRepo extends CrudRepository<Task, Long> {
-	List<Task> findAll();
+	List<Task> findAllByOrderByDeadlineAsc();
 	List<Task> findByAssigneeAndCreatorNot(User assignee, User creator);
-	List<Task> findByCreator(User user);
+	List<Task> findByCreatorOrderByDeadlineAsc(User user);
 	List<Task> findByCategory(Category category);
 	List<Task> findByPriority(String priority);
 	List<Task> findByPriorityAndCreator(String priority, User user);

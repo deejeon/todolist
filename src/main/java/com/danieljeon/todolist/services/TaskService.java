@@ -21,7 +21,7 @@ public class TaskService {
 	}
 	
 	public List<Task> all() {
-		return taskRepo.findAll();
+		return taskRepo.findAllByOrderByDeadlineAsc();
 	}
 	
 	public List<Task> allByAssigneeAndCreatorNot(User assignee, User creator) {
@@ -29,7 +29,7 @@ public class TaskService {
 	}
 	
 	public List<Task> allByCreator(User user) {
-		return taskRepo.findByCreator(user);
+		return taskRepo.findByCreatorOrderByDeadlineAsc(user);
 	}
 	
 	public List<Task> allByCategory(Category category) {
