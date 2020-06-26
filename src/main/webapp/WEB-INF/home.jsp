@@ -8,10 +8,14 @@
 		<meta charset="UTF-8">
 		<title>Home | Todolist</title>
 		<link rel="stylesheet" href="/css/home.css">
+		<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 	</head>
 	<body>
 		<div class="header sticky" id="header">
-			<h1><a href="/">Todolist</a></h1>
+<!-- 			<div class="logo"> -->
+				<h1><a class="logo" href="/"><img class="main-logo" src="/img/header-logo-white.png" width="35" height="35">Todolist</a></h1>
+<!-- 			</div> -->
+			
 			<div class="header-links">
 				<a href="/users/showlogin">Login</a>
 				<a id="register" href="/users/showregister">Signup</a>
@@ -27,19 +31,32 @@
 				<p>Regain clarity and calmness by getting all those tasks out of your head and onto your to-do list (no matter where you are or what device you use).</p>
 			</div>
 			<section class="reviews">
-				<div id="reviews-image"></div>
-				<!-- <div class="reviews-container">
+				<div id="reviews-image">
 					<div class="review">
-						<p class="reviewer">Google Play</p>
 						<div>
+							<h4 class="reviewer">Google Play</h4>
 							<div class="stars">★★★★★</div>
 							<h4 class="review-content">Editor's Choice</h4>
 							<h4 class="review-content">4.7 stars, 187K+ reviews</h4>
 						</div>
 					</div>
-					<div></div>
-					<div></div>
-				</div> -->
+					<div class="review">
+						<div>
+							<h4 class="reviewer">App Store</h4>
+							<div class="stars">★★★★★</div>
+							<h4 class="review-content">Featured app</h4>
+							<h4 class="review-content">4.8 stars, 30K+ reviews</h4>
+						</div>
+					</div>
+					<div class="review">
+						<div>
+							<h4 class="reviewer">The Verge</h4>
+							<h4 class="review-content">9/10</h4>
+							<h4 class="review-content">"The best to-do list app</h4>
+							<h4 class="review-content">right now"</h4>
+						</div>
+					</div>
+				</div>
 			</section>
 			
 		</div>

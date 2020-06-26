@@ -17,8 +17,10 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "tasks")
@@ -33,7 +35,8 @@ public class Task {
 	private String priority;
 	
 	@FutureOrPresent(message = "Deadline cannot be a past date")
-	@NotEmpty(message = "Deadline is required")
+	@NotNull(message = "Deadline is required")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date deadline;
 	
 	@AssertFalse

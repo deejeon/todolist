@@ -8,12 +8,13 @@
 		<meta charset="UTF-8">
 		<title>Login | Todolist</title>
 		<link rel="stylesheet" href="/css/login.css">
+		<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 	</head>
 	<body>
 		<main role="main" class="standalone_page">
 			<div class="standalone_page__frame">
 				<div class="standalone_page__logo">
-					<h1><a href="/">Todolist</a></h1>
+					<h1><a class="logo" href="/"><img class="main-logo" src="/img/header-logo-white.png" width="30" height="30">Todolist</a></h1>
 				</div>
 				<div class="standalone_page__content">
 					<div id="signup" class="login_signup_form">

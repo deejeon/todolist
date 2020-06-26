@@ -1,5 +1,6 @@
 package com.danieljeon.todolist.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,12 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.danieljeon.todolist.models.Category;
 import com.danieljeon.todolist.models.Task;
 import com.danieljeon.todolist.models.User;
+import com.danieljeon.todolist.services.CategoryService;
 import com.danieljeon.todolist.services.CommentService;
 import com.danieljeon.todolist.services.TaskService;
 import com.danieljeon.todolist.services.UserService;
@@ -29,14 +33,17 @@ public class MainController {
 	private final TaskService taskService;
 	@Autowired
 	private final CommentService commentService;
+	@Autowired
+	private final CategoryService categoryService;
 	
 	@Autowired
 	private final UserValidator userValidator;
 	
-	public MainController(UserService us, TaskService ts, CommentService cs, UserValidator uv) {
+	public MainController(UserService us, TaskService ts, CommentService cs, CategoryService catS, UserValidator uv) {
 		this.userService = us;
 		this.taskService = ts;
 		this.commentService = cs;
+		this.categoryService = catS;
 		this.userValidator = uv;
 	}
 	
@@ -116,8 +123,168 @@ public class MainController {
 		}
 		Long userId = (Long) session.getAttribute("userId");
 		User currentUser = userService.findUserById(userId);
+		List<Category> allCategories = categoryService.all();
 		List<Task> createdTasks = taskService.allByCreator(currentUser);
+		List<Task> assignedTasks = taskService.allByAssigneeAndCreatorNot(currentUser, currentUser);
+		List<Task> highTasks = taskService.allByPriorityAndCreator("high", currentUser);
+		List<Task> mediumTasks = taskService.allByPriorityAndCreator("medium", currentUser);
+		List<Task> lowTasks = taskService.allByPriorityAndCreator("low", currentUser);
 		model.addAttribute("currentUser", currentUser);
+		model.addAttribute("allCategories", allCategories);
+		model.addAttribute("createdTasks", createdTasks);
+		model.addAttribute("assignedTasks", assignedTasks);
+		model.addAttribute("highTasks", highTasks);
+		model.addAttribute("mediumTasks", mediumTasks);
+		model.addAttribute("lowTasks", lowTasks);
 		return "alltasks.jsp";
 	}
+	
+	@RequestMapping("/tasks/new")
+	public String newTaskPage(HttpSession session, Model model, @ModelAttribute("task") Task task) {
+		if (session.getAttribute("userId") == null) {
+			return "redirect:/";
+		}
+		Long userId = (Long) session.getAttribute("userId");
+		User currentUser = userService.findUserById(userId);
+		List<User> allUsers = userService.all();
+		List<Category> allCategories = categoryService.all();
+		List<Task> createdTasks = taskService.allByCreator(currentUser);
+		List<Task> assignedTasks = taskService.allByAssigneeAndCreatorNot(currentUser, currentUser);
+		
+		List<Task> highTasks = taskService.allByPriorityAndCreator("high", currentUser);
+		List<Task> mediumTasks = taskService.allByPriorityAndCreator("medium", currentUser);
+		List<Task> lowTasks = taskService.allByPriorityAndCreator("low", currentUser);
+		
+		List<Task> highAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("high", currentUser, currentUser);
+		List<Task> mediumAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("medium", currentUser, currentUser);
+		List<Task> lowAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("low", currentUser, currentUser);
+		
+		model.addAttribute("currentUser", currentUser);
+		model.addAttribute("allUsers", allUsers);
+		model.addAttribute("allCategories", allCategories);
+		model.addAttribute("createdTasks", createdTasks);
+		model.addAttribute("assignedTasks", assignedTasks);
+		model.addAttribute("highTasks", highTasks);
+		model.addAttribute("mediumTasks", mediumTasks);
+		model.addAttribute("lowTasks", lowTasks);
+		model.addAttribute("highAssignedTasks", highAssignedTasks);
+		model.addAttribute("mediumAssignedTasks", mediumAssignedTasks);
+		model.addAttribute("lowAssignedTasks", lowAssignedTasks);
+		return "newtask.jsp";
+	}
+	
+	@RequestMapping(value = "/tasks", method = RequestMethod.POST)
+	public String createTask(HttpSession session, Model model, @Valid @ModelAttribute("task") Task task, BindingResult result) {
+		Long userId = (Long) session.getAttribute("userId");
+		User currentUser = userService.findUserById(userId);
+		List<User> allUsers = userService.all();
+		List<Category> allCategories = categoryService.all();
+		List<Task> createdTasks = taskService.allByCreator(currentUser);
+		model.addAttribute("currentUser", currentUser);
+		model.addAttribute("allUsers", allUsers);
+		model.addAttribute("allCategories", allCategories);
+		model.addAttribute("createdTasks", createdTasks);
+		
+		if (result.hasErrors()) {
+			return "newtask.jsp";
+		}
+		
+		Task createdTask = taskService.create(task);
+		taskService.addCreator(createdTask, currentUser);
+		return "redirect:/tasks";
+	}
+	
+	@RequestMapping("/tasks/{priority}-priority")
+	public String tasksByPriority(HttpSession session, Model model, @PathVariable("priority") String currentPriority) {
+		if (session.getAttribute("userId") == null) {
+			return "redirect:/";
+		}
+		Long userId = (Long) session.getAttribute("userId");
+		User currentUser = userService.findUserById(userId);
+		List<Category> allCategories = categoryService.all();
+		List<Task> createdTasks = taskService.allByCreator(currentUser);
+		List<Task> assignedTasks = taskService.allByAssigneeAndCreatorNot(currentUser, currentUser);
+		
+		List<Task> highTasks = taskService.allByPriorityAndCreator("high", currentUser);
+		List<Task> mediumTasks = taskService.allByPriorityAndCreator("medium", currentUser);
+		List<Task> lowTasks = taskService.allByPriorityAndCreator("low", currentUser);
+		
+		List<Task> highAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("high", currentUser, currentUser);
+		List<Task> mediumAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("medium", currentUser, currentUser);
+		List<Task> lowAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("low", currentUser, currentUser);
+		
+		List<Task> currentTasks = new ArrayList<>();
+		List<Task> currentAssignedTasks = new ArrayList<>();
+		
+		boolean isHigh = false;
+		boolean isMedium = false;
+		boolean isLow = false;
+		
+		String displayedPriority;
+		if (currentPriority.equals("high")) {
+			currentTasks = highTasks;
+			currentAssignedTasks = highAssignedTasks;
+			displayedPriority = "High";
+			isHigh = true;
+		}
+		else if (currentPriority.equals("medium")) {
+			currentTasks = mediumTasks;
+			currentAssignedTasks = mediumAssignedTasks;
+			displayedPriority = "Medium";
+			isMedium = true;
+		}
+		else {
+			currentTasks = lowTasks;
+			currentAssignedTasks = lowAssignedTasks;
+			displayedPriority = "Low";
+			isLow = true;
+		}
+		model.addAttribute("currentUser", currentUser);
+		model.addAttribute("allCategories", allCategories);
+		model.addAttribute("createdTasks", createdTasks);
+		model.addAttribute("assignedTasks", assignedTasks);
+		model.addAttribute("highTasks", highTasks);
+		model.addAttribute("mediumTasks", mediumTasks);
+		model.addAttribute("lowTasks", lowTasks);
+		model.addAttribute("highAssignedTasks", highAssignedTasks);
+		model.addAttribute("mediumAssignedTasks", mediumAssignedTasks);
+		model.addAttribute("lowAssignedTasks", lowAssignedTasks);
+		model.addAttribute("currentTasks", currentTasks);
+		model.addAttribute("currentAssignedTasks", currentAssignedTasks);
+		model.addAttribute("displayedPriority", displayedPriority);
+		model.addAttribute("isHigh", isHigh);
+		model.addAttribute("isMedium", isMedium);
+		model.addAttribute("isLow", isLow);
+		return "prioritytasks.jsp";
+	}
+	
+//	@RequestMapping("/api/categories")
+//	public String showCategories(Model model) {
+//		List<Category> allCategories = categoryService.all();
+//		model.addAttribute("allCategories", allCategories);
+//		return "categories.jsp";
+//	}
+//	
+//	@RequestMapping("/api/categories/new")
+//	public String newCategoryPage(@ModelAttribute("category") Category category) {
+//		return "newcategory.jsp";
+//	}
+//	
+//	@RequestMapping(value = "/api/categories", method = RequestMethod.POST)
+//	public String createCategory(@Valid @ModelAttribute("category") Category category, BindingResult result) {
+//		if (result.hasErrors()) return "newcategory.jsp";
+//		categoryService.create(category);
+//		return "redirect:/api/categories";
+//	}
+//	
+//	@RequestMapping(value = "/api/categories", method = RequestMethod.DELETE)
+//	public String deleteAllCategories() {
+//		categoryService.deleteAll();
+//		return "redirect:/api/categories";
+//	}
+//	
+//	@RequestMapping(value = "/api/tasks", method = RequestMethod.DELETE)
+//	public void deleteAllTasks() {
+//		taskService.deleteAll();
+//	}
 }

@@ -42,16 +42,26 @@ body {
 
 .standalone_page__logo {
 	text-align: center;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	font-style: normal;
 	font-weight: 500;
-	font-size: 10px;
+	font-size: 12px;
 	color: #e44232;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .standalone_page__logo a, .standalone_page__logo a:visited {
 	text-decoration: none;
 	color: #e44232;
+}
+
+.logo {
+	width: 80%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .standalone_page__content {

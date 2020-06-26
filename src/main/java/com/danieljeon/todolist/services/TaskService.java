@@ -24,8 +24,8 @@ public class TaskService {
 		return taskRepo.findAll();
 	}
 	
-	public List<Task> allByAssignee(User user) {
-		return taskRepo.findByAssignee(user);
+	public List<Task> allByAssigneeAndCreatorNot(User assignee, User creator) {
+		return taskRepo.findByAssigneeAndCreatorNot(assignee, creator);
 	}
 	
 	public List<Task> allByCreator(User user) {
@@ -34,6 +34,14 @@ public class TaskService {
 	
 	public List<Task> allByCategory(Category category) {
 		return taskRepo.findByCategory(category);
+	}
+	
+	public List<Task> allByPriorityAndCreator(String priority, User user) {
+		return taskRepo.findByPriorityAndCreator(priority, user);
+	}
+	
+	public List<Task> allByPriorityAndAssigneeAndCreatorNot(String priority, User assignee, User creator) {
+		return taskRepo.findByPriorityAndAssigneeAndCreatorNot(priority, assignee, creator);
 	}
 	
 	public Task create(Task task) {
@@ -64,5 +72,9 @@ public class TaskService {
 	public void delete(Long id) {
 		taskRepo.deleteById(id);
 		return;
+	}
+	
+	public void deleteAll() {
+		taskRepo.deleteAll();
 	}
 }

@@ -20,4 +20,12 @@ public class CategoryService {
 	public List<Category> all() {
 		return categoryRepo.findAll();
 	}
+	
+	public Category create(Category category) {
+		return categoryRepo.save(category);
+	}
+	
+	public void deleteAll() {
+		categoryRepo.deleteAll();
+	}
 }

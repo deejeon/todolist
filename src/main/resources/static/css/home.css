@@ -8,7 +8,7 @@ body {
 .header {
 	width: 80%;
 	background: #FFFFFF;
-	height: 10vh;
+	height: 8vh;
 	/* color: #f1f1f1; */
 	display: flex;
 	flex-direction: row;
@@ -16,6 +16,14 @@ body {
 	justify-content: space-between;
 	padding-left: 10%;
 	padding-right: 10%;
+}
+
+.logo {
+	margin-left: 50px;
+	width: 75%;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
 .header h1 {
@@ -37,7 +45,7 @@ body {
 }
 
 .header-links a {
-	padding: 10px;
+	padding: 20px 20px;
 	text-decoration: none;
 	color: #424242;
 }
@@ -54,7 +62,7 @@ body {
 
 .content {
   	padding: 0px;
-  	padding-top: 80px;
+  	padding-top: 170px;
   	display: flex;
   	flex-direction: column;
   	align-items: center;
@@ -62,8 +70,9 @@ body {
 
 #getstarted {
 	height: 90vh;
+	width: 80%;
 	background-image: url(todoist.jpg);
-	background-size: 100%;
+	background-size: cover;
 	display: flex;
   	flex-direction: column;
   	align-items: center;
@@ -75,7 +84,7 @@ body {
 	margin-bottom: 15px;
 	font-style: normal;
 	font-weight: 600;
-	font-size: 50px;
+	font-size: 70px;
 	color: black;
 	text-align: center;
 }
@@ -84,50 +93,44 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 10px 150px;
+	padding: 0px 150px;
+	margin-bottom: 40px;
 }
 
 #info h1 {
+	font-size: 60px;
 	margin-bottom: 0px;
 }
 
 #info p {
-	font-size: 14px;
+	font-size: 24px;
 	font-weight: 300;
-	padding: 0px 10px;
-	margin-top: 10px;
+	padding: 0px 150px;
+	margin-top: 15px;
 	text-align: center;
 }
 
 .reviews {
 	width: 100%;
-/* 	margin: -1rem 0 -3rem;
- */	padding: 0 0 2rem;
+	height: 400px;
+ 	padding: 0 0 2rem;
 	position: relative;
 }
 #reviews-image {
-	position: absolute;
+/* 	position: absolute; */
 	top: 0;
 	height: 100%;
 	width: 100%;
 	background-image: url(todoist-reviews.jpg);
-	background-size: 100%;
+	background-size: 90%;
 	background-repeat: repeat-x;
-	background-position: 50%;
-}
-.reviews-container {
-	padding: 0 .5rem;
+/* 	background-position: 50%; */
 	display: flex;
-	white-space: pre-wrap;
-	justify-content: space-between;
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	max-width: 1120px;
+	justify-content: space-evenly;
 }
 
 .review {
-	position: relative;
+	height: 100%;
 	padding: .8rem .5rem;
 	display: flex;
 	flex-direction: column;
@@ -135,18 +138,18 @@ body {
 }
 
 .reviewer {
-	font-size: 1rem;
+	font-weight: 300;
+	font-size: 18px;
 	letter-spacing: 0;
-	margin: 0;
+	margin-bottom: 15px;
 }
 
 .stars {
-	margin: 0;
+	margin-bottom: 15px;
 }
 
 .review-content {
-	
-	font-weight: 600;
+	font-weight: 500;
 	font-size: 1.5rem;
 	letter-spacing: -.01em;
 	margin: 0;
@@ -161,11 +164,12 @@ body {
 }
 
 .btn-link {
-	padding: 5px 15px;
+	padding: 10px 25px;
 	background: #e44232;
 	border-radius: 10px;
 	text-decoration: none;
 	color: white;
+	font-size: 20px;
 }
 
 .btn-link:hover {

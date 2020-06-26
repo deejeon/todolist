@@ -8,6 +8,7 @@
 		<meta charset="UTF-8">
 		<title>Sign Up | Todolist</title>
 		<link rel="stylesheet" href="/css/register.css">
+		<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
 	</head>
 	<body>
 		<main role="main" class="standalone_page">
