@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.danieljeon.todolist.models.Category;
 import com.danieljeon.todolist.models.Task;
@@ -313,6 +314,17 @@ public class MainController {
 		model.addAttribute("lowAssignedTasks", lowAssignedTasks);
 		
 		return "showtask.jsp";
+	}
+	
+	@RequestMapping(value="/tasks/{taskId}", method=RequestMethod.PUT)
+	public String updateTask(HttpSession session, RedirectAttributes redirectAttributes, @PathVariable("taskId") Long taskId, @Valid @ModelAttribute("eTask") Task eTask, BindingResult result) {
+		Task currentTask = taskService.findTaskById(taskId);
+		if (result.hasErrors()) {
+			redirectAttributes.addFlashAttribute("taskError", "Task must be present!");
+			return "redirect:/tasks/"+taskId+"/edit";
+		}
+		taskService.update(currentTask, eTask);
+		return "redirect:/tasks/"+taskId;
 	}
 	
 	@RequestMapping(value="/tasks/{taskId}", method=RequestMethod.DELETE)

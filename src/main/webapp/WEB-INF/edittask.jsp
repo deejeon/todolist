@@ -45,6 +45,7 @@
 					<div class="form-div">
 			            <form:label path="title">Task Title </form:label>
 			            <form:errors class="errormessage" path="title"/>
+			            <span class="errormessage"><c:out value="${taskError}"/></span>
 			            <form:input class="input-box" path="title" value="${currentTask.title}"/>
 			        </div>
 			        <div class="form-div">

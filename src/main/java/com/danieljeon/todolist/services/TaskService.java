@@ -62,10 +62,10 @@ public class TaskService {
 	public Task update(Task currentTask, Task eTask) {
 		Task updatedTask = this.findTaskById(currentTask.getId());
 		updatedTask.setTitle(eTask.getTitle());
+		updatedTask.setCategory(eTask.getCategory());
 		updatedTask.setAssignee(eTask.getAssignee());
 		updatedTask.setPriority(eTask.getPriority());
 		updatedTask.setDeadline(eTask.getDeadline());
-		updatedTask.setCompleted(eTask.isCompleted());
 		return taskRepo.save(currentTask);
 	}
 	
