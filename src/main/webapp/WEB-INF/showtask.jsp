@@ -30,9 +30,9 @@
 				<a class="tab" href="/"><img class="icon" src="/img/today-icon.png" width="20" height="20">Today</a>
 				<a class="tab" href="/"><img class="icon" src="/img/next-icon.png" width="20" height="20">Next 7 Days</a>
 				<div class="divider"></div>
-				<a class="tab" href="/tasks/high-priority"><img class="icon" src="/img/high-icon.png" width="20" height="20">High Priority <span class="size"><c:out value="${highTasks.size()}"/></span></a>
-				<a class="tab" href="/tasks/medium-priority"><img class="icon" src="/img/medium-icon.png" width="20" height="20">Medium Priority <span class="size"><c:out value="${mediumTasks.size()}"/></span></a>
-				<a class="tab" href="/tasks/low-priority"><img class="icon" src="/img/low-icon.png" width="20" height="20">Low Priority <span class="size"><c:out value="${lowTasks.size()}"/></span></a>
+				<a class="tab" href="/tasks/high-priority"><img class="icon" src="/img/high-icon.png" width="20" height="20">High Priority <span class="size"><c:out value="${highTasks.size() + highAssignedTasks.size()}"/></span></a>
+				<a class="tab" href="/tasks/medium-priority"><img class="icon" src="/img/medium-icon.png" width="20" height="20">Medium Priority <span class="size"><c:out value="${mediumTasks.size() + mediumAssignedTasks.size()}"/></span></a>
+				<a class="tab" href="/tasks/low-priority"><img class="icon" src="/img/low-icon.png" width="20" height="20">Low Priority <span class="size"><c:out value="${lowTasks.size() + lowAssignedTasks.size()}"/></span></a>
 				<div class="divider"></div>
 				<c:forEach items="${allCategories}" var="cat">
 				<a class="tab" href="/"><img class="icon" src="/img/${cat.name}-icon.png" width="20" height="20"><c:out value="${cat.name}"/></a>
@@ -48,6 +48,7 @@
 				
 				<div class="action-buttons">
 					<c:if test="${isCreator}">
+					<a class="edit-btn" href="/tasks/${currentTask.id}/edit">Edit</a>
 					<form class="detail-line" action="/tasks/${currentTask.id}" method="POST">
 						<input type="hidden" name="_method" value="DELETE">
 						<input class="delete-btn" type="submit" value="Delete">

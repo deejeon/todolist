@@ -128,9 +128,15 @@ public class MainController {
 		List<Category> allCategories = categoryService.all();
 		List<Task> createdTasks = taskService.allByCreator(currentUser);
 		List<Task> assignedTasks = taskService.allByAssigneeAndCreatorNot(currentUser, currentUser);
+		
 		List<Task> highTasks = taskService.allByPriorityAndCreator("high", currentUser);
 		List<Task> mediumTasks = taskService.allByPriorityAndCreator("medium", currentUser);
 		List<Task> lowTasks = taskService.allByPriorityAndCreator("low", currentUser);
+		
+		List<Task> highAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("high", currentUser, currentUser);
+		List<Task> mediumAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("medium", currentUser, currentUser);
+		List<Task> lowAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("low", currentUser, currentUser);
+		
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("allCategories", allCategories);
 		model.addAttribute("createdTasks", createdTasks);
@@ -138,6 +144,10 @@ public class MainController {
 		model.addAttribute("highTasks", highTasks);
 		model.addAttribute("mediumTasks", mediumTasks);
 		model.addAttribute("lowTasks", lowTasks);
+		model.addAttribute("highAssignedTasks", highAssignedTasks);
+		model.addAttribute("mediumAssignedTasks", mediumAssignedTasks);
+		model.addAttribute("lowAssignedTasks", lowAssignedTasks);
+		
 		return "alltasks.jsp";
 	}
 	
@@ -315,6 +325,54 @@ public class MainController {
 	public String completeTask(@PathVariable("taskId") Long taskId) {
 		taskService.complete(taskId);
 		return "redirect:/tasks";
+	}
+	
+	@RequestMapping("/tasks/{taskId}/edit")
+	public String editTaskPage(HttpSession session, Model model, @PathVariable("taskId") Long taskId, @ModelAttribute("eTask") Task eTask) {
+		if (session.getAttribute("userId") == null) {
+			return "redirect:/";
+		}
+		Long userId = (Long) session.getAttribute("userId");
+		User currentUser = userService.findUserById(userId);
+		Task currentTask = taskService.findTaskById(taskId);
+		boolean isCreator = (userId == currentTask.getCreator().getId());
+		
+		if (!isCreator) return "redirect:/tasks";
+		
+		Date currentTaskDeadline = currentTask.getDeadline();
+		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+		String formattedDeadline = ft.format(currentTaskDeadline);
+		
+		List<User> allUsers = userService.all();
+		
+		List<Category> allCategories = categoryService.all();
+		List<Task> createdTasks = taskService.allByCreator(currentUser);
+		List<Task> assignedTasks = taskService.allByAssigneeAndCreatorNot(currentUser, currentUser);
+
+		List<Task> highTasks = taskService.allByPriorityAndCreator("high", currentUser);
+		List<Task> mediumTasks = taskService.allByPriorityAndCreator("medium", currentUser);
+		List<Task> lowTasks = taskService.allByPriorityAndCreator("low", currentUser);
+		
+		List<Task> highAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("high", currentUser, currentUser);
+		List<Task> mediumAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("medium", currentUser, currentUser);
+		List<Task> lowAssignedTasks = taskService.allByPriorityAndAssigneeAndCreatorNot("low", currentUser, currentUser);
+		
+		model.addAttribute("currentUser", currentUser);
+		model.addAttribute("currentTask", currentTask);
+		model.addAttribute("isCreator", isCreator);
+		model.addAttribute("formattedDeadline", formattedDeadline);
+		model.addAttribute("allUsers", allUsers);
+		model.addAttribute("allCategories", allCategories);
+		model.addAttribute("createdTasks", createdTasks);
+		model.addAttribute("assignedTasks", assignedTasks);
+		model.addAttribute("highTasks", highTasks);
+		model.addAttribute("mediumTasks", mediumTasks);
+		model.addAttribute("lowTasks", lowTasks);
+		model.addAttribute("highAssignedTasks", highAssignedTasks);
+		model.addAttribute("mediumAssignedTasks", mediumAssignedTasks);
+		model.addAttribute("lowAssignedTasks", lowAssignedTasks);
+		
+		return "edittask.jsp";
 	}
 	
 //	@RequestMapping("/api/categories")
