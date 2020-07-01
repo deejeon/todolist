@@ -269,6 +269,8 @@ public class MainController {
 		User currentUser = userService.findUserById(userId);
 		Task currentTask = taskService.findTaskById(taskId);
 		boolean isCreator = (userId == currentTask.getCreator().getId());
+		boolean isAssignee = (userId == currentTask.getAssignee().getId());
+		boolean canComplete = (!currentTask.isCompleted() && isAssignee);
 		Date currentTaskDeadline = currentTask.getDeadline();
 		SimpleDateFormat ft = new SimpleDateFormat("MM/dd/yyyy");
 		String formattedDeadline = ft.format(currentTaskDeadline);
@@ -288,6 +290,7 @@ public class MainController {
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("currentTask", currentTask);
 		model.addAttribute("isCreator", isCreator);
+		model.addAttribute("canComplete", canComplete);
 		model.addAttribute("formattedDeadline", formattedDeadline);
 		model.addAttribute("allCategories", allCategories);
 		model.addAttribute("createdTasks", createdTasks);
@@ -305,6 +308,12 @@ public class MainController {
 	@RequestMapping(value="/tasks/{taskId}", method=RequestMethod.DELETE)
 	public String deleteTask(@PathVariable("taskId") Long taskId) {
 		taskService.delete(taskId);
+		return "redirect:/tasks";
+	}
+	
+	@RequestMapping(value="/tasks/{taskId}/complete", method=RequestMethod.POST)
+	public String completeTask(@PathVariable("taskId") Long taskId) {
+		taskService.complete(taskId);
 		return "redirect:/tasks";
 	}
 	

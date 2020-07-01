@@ -15,8 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.AssertFalse;
-import javax.validation.constraints.FutureOrPresent;
+//import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -34,13 +33,12 @@ public class Task {
 	
 	private String priority;
 	
-	@FutureOrPresent(message = "Deadline cannot be a past date")
+//	@FutureOrPresent(message = "Deadline cannot be a past date")
 	@NotNull(message = "Deadline is required")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date deadline;
 	
-	@AssertFalse
-	private boolean completed;
+	private boolean completed = false;
 	
 	@Column(updatable = false)
 	private Date createdAt;
