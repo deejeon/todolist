@@ -42,7 +42,7 @@
 				<h1>All Tasks</h1>
 				<c:forEach items="${createdTasks}" var="createdTask">
 				<a class="task-div" href="/tasks/${createdTask.id}">
-					<p class="task-div-task"><img class="icon" src="/img/${createdTask.category.name}-icon.png" width="20" height="20"><c:out value="${createdTask.title}"/><span>(Due: <c:out value="${createdTask.deadline}"/>)</span></p>
+					<p class="task-div-task"><img class="icon" src="/img/${createdTask.category.name}-icon.png" width="20" height="20"><c:out value="${createdTask.title}"/><span>(Due: <c:out value="${createdTask.deadline}"/>)</span><img class="icon" src="/img/${createdTask.completed}-icon.png" width="18" height="18"></p>
 					<p class="task-div-assignee">Assigned to <span><c:out value="${createdTask.assignee.firstName}"/> <c:out value="${createdTask.assignee.lastName}"/></span></p>
 				</a>
 				<div class="task-divider"></div>
@@ -54,7 +54,7 @@
 				<h1 class="assigned-header">Assigned to Me By Others</h1>
 				<c:forEach items="${assignedTasks}" var="task">
 				<a class="task-div" href="/tasks/${task.id}">
-					<p class="task-div-task"><img class="icon" src="/img/${task.category.name}-icon.png" width="20" height="20"><c:out value="${task.title}"/><span>(Due: <c:out value="${task.deadline}"/>)</span></p>
+					<p class="task-div-task"><img class="icon" src="/img/${task.category.name}-icon.png" width="20" height="20"><c:out value="${task.title}"/><span>(Due: <c:out value="${task.deadline}"/>)</span><img class="icon" src="/img/${task.completed}-icon.png" width="18" height="18"></p>
 					<p class="task-div-assignee">Created by <span><c:out value="${task.creator.firstName}"/> <c:out value="${task.creator.lastName}"/></span></p>
 				</a>
 				<div class="task-divider"></div>

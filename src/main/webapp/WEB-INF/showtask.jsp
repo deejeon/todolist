@@ -45,6 +45,15 @@
 				<p class="detail-line">Deadline: <span class="detail-line-deadline"><c:out value="${formattedDeadline}"/></span></p>
 				<p class="detail-line detail-line-with-icon">Priority: <span class="detail-line-priority"><img class="icon" src="/img/${currentTask.priority}-icon.png" width="20" height="20"><c:out value="${currentTask.priority.substring(0, 1).toUpperCase().concat(currentTask.priority.substring(1))}"/></span></p>
 				<p class="detail-line detail-line-with-icon">Completed: <span class="detail-line-completed"><img class="icon" src="/img/${currentTask.completed}-icon.png" width="20" height="20"></span></p>
+				
+				<p class="detail-line">
+					<c:if test="${isCreator}">
+					<form class="detail-line" action="/tasks/${currentTask.id}" method="POST">
+						<input type="hidden" name="_method" value="DELETE">
+						<input class="delete-btn" type="submit" value="Delete">
+					</form>
+					</c:if>
+				</p>
 			</div>
 		</div>
 

@@ -268,6 +268,7 @@ public class MainController {
 		Long userId = (Long) session.getAttribute("userId");
 		User currentUser = userService.findUserById(userId);
 		Task currentTask = taskService.findTaskById(taskId);
+		boolean isCreator = (userId == currentTask.getCreator().getId());
 		Date currentTaskDeadline = currentTask.getDeadline();
 		SimpleDateFormat ft = new SimpleDateFormat("MM/dd/yyyy");
 		String formattedDeadline = ft.format(currentTaskDeadline);
@@ -286,6 +287,7 @@ public class MainController {
 		
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("currentTask", currentTask);
+		model.addAttribute("isCreator", isCreator);
 		model.addAttribute("formattedDeadline", formattedDeadline);
 		model.addAttribute("allCategories", allCategories);
 		model.addAttribute("createdTasks", createdTasks);
@@ -298,6 +300,12 @@ public class MainController {
 		model.addAttribute("lowAssignedTasks", lowAssignedTasks);
 		
 		return "showtask.jsp";
+	}
+	
+	@RequestMapping(value="/tasks/{taskId}", method=RequestMethod.DELETE)
+	public String deleteTask(@PathVariable("taskId") Long taskId) {
+		taskService.delete(taskId);
+		return "redirect:/tasks";
 	}
 	
 //	@RequestMapping("/api/categories")
